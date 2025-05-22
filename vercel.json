@@ -1,19 +1,22 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "backend_api.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "50mb" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend_api.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb",
+        "buildCommand": "pip install --no-cache-dir -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html"
       }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "backend_api.py"
-      }
-    ],
-    "env": {
-      "PYTHON_VERSION": "3.9"
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "backend_api.py"
+    }
+  ],
+  "env": {
+    "PYTHON_VERSION": "3.9"
   }
+}
