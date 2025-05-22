@@ -1,6 +1,6 @@
 flask==2.3.3
 flask-cors==4.0.0
-torch==2.4.1+cpu
+torch==2.4.1
 torchvision==0.19.1+cpu
 efficientnet-pytorch==0.7.1
 pillow==10.0.0
