@@ -10,6 +10,7 @@ import shutil
 import uuid
 from pdf2image import convert_from_path
 import mimetypes
+import requests
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend-backend communication
@@ -17,10 +18,16 @@ CORS(app)  # Enable CORS for frontend-backend communication
 # Define model loading
 def load_model():
     model = EfficientNet.from_pretrained('efficientnet-b3')
-    num_classes = 4  # LL, LR, RL, RR
+    num_classes = 4
     model._fc = nn.Linear(in_features=model._fc.in_features, out_features=num_classes)
-    state_dict = torch.load('./EfficientNet/best_model.pth', map_location=torch.device('cpu'))
+    model_url = "YOUR_VERCEL_BLOB_URL"
+    temp_model_path = os.path.join('temp', 'model.pth')
+    os.makedirs('temp', exist_ok=True)
+    with open(temp_model_path, 'wb') as f:
+        f.write(requests.get(model_url).content)
+    state_dict = torch.load(temp_model_path, map_location=torch.device('cpu'))
     model.load_state_dict(state_dict)
+    os.remove(temp_model_path)
     model.eval()
     return model
 
