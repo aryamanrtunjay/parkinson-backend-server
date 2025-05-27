@@ -1,2 +1,1 @@
-venv/ pycache/ .pyc .env temp/
-.vercel
+venv/ pycache/ .pyc .env temp/.vercel
