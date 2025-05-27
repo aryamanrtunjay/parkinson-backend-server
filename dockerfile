@@ -8,5 +8,4 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html
 COPY . .
 
-ENV PORT=5000
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "backend_api:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "backend_api:app"]
